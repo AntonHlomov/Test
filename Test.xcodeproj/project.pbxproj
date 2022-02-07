@@ -14,6 +14,7 @@
 		8A600E5D27B127E200989A29 /* Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E5B27B127E200989A29 /* Test.xcdatamodeld */; };
 		8A600E5F27B127E300989A29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A600E5E27B127E300989A29 /* Assets.xcassets */; };
 		8A600E6227B127E300989A29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A600E6027B127E300989A29 /* LaunchScreen.storyboard */; };
+		8A600E7427B130EC00989A29 /* AnchoredConstraintsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E7327B130EC00989A29 /* AnchoredConstraintsExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8A600E5E27B127E300989A29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A600E6127B127E300989A29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A600E6327B127E300989A29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A600E7327B130EC00989A29 /* AnchoredConstraintsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredConstraintsExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,10 @@
 		8A600E5127B127E200989A29 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				8A600E6F27B12F1100989A29 /* GlobalExtension */,
+				8A600E6D27B12DC700989A29 /* ModuleBuilder */,
+				8A600E6927B12D3F00989A29 /* MainModule */,
+				8A600E6E27B12E5800989A29 /* ServiceLayer */,
 				8A600E5227B127E200989A29 /* AppDelegate.swift */,
 				8A600E5427B127E200989A29 /* SceneDelegate.swift */,
 				8A600E5627B127E200989A29 /* ViewController.swift */,
@@ -68,6 +74,75 @@
 				8A600E5B27B127E200989A29 /* Test.xcdatamodeld */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		8A600E6927B12D3F00989A29 /* MainModule */ = {
+			isa = PBXGroup;
+			children = (
+				8A600E6B27B12D6E00989A29 /* Model */,
+				8A600E6A27B12D6400989A29 /* View */,
+				8A600E6C27B12D8600989A29 /* Presenter */,
+			);
+			path = MainModule;
+			sourceTree = "<group>";
+		};
+		8A600E6A27B12D6400989A29 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A600E6B27B12D6E00989A29 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8A600E6C27B12D8600989A29 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A600E6D27B12DC700989A29 /* ModuleBuilder */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ModuleBuilder;
+			sourceTree = "<group>";
+		};
+		8A600E6E27B12E5800989A29 /* ServiceLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ServiceLayer;
+			sourceTree = "<group>";
+		};
+		8A600E6F27B12F1100989A29 /* GlobalExtension */ = {
+			isa = PBXGroup;
+			children = (
+				8A600E7227B1309400989A29 /* Anchored constraints */,
+				8A600E7127B12FAE00989A29 /* Caching Image */,
+			);
+			path = GlobalExtension;
+			sourceTree = "<group>";
+		};
+		8A600E7127B12FAE00989A29 /* Caching Image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Caching Image";
+			sourceTree = "<group>";
+		};
+		8A600E7227B1309400989A29 /* Anchored constraints */ = {
+			isa = PBXGroup;
+			children = (
+				8A600E7327B130EC00989A29 /* AnchoredConstraintsExtension.swift */,
+			);
+			path = "Anchored constraints";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +219,7 @@
 				8A600E5727B127E200989A29 /* ViewController.swift in Sources */,
 				8A600E5D27B127E200989A29 /* Test.xcdatamodeld in Sources */,
 				8A600E5327B127E200989A29 /* AppDelegate.swift in Sources */,
+				8A600E7427B130EC00989A29 /* AnchoredConstraintsExtension.swift in Sources */,
 				8A600E5527B127E200989A29 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +377,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,7 +387,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -329,6 +406,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -338,7 +416,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
