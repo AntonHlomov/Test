@@ -58,6 +58,10 @@
 		8A600E5127B127E200989A29 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				8A600E8427B31F0D00989A29 /* Builder */,
+				8A600E8327B31F0B00989A29 /* Extension */,
+				8A600E8227B31F0800989A29 /* MainModule */,
+				8A600E8127B31EFD00989A29 /* ServisceLayer */,
 				8A600E5227B127E200989A29 /* AppDelegate.swift */,
 				8A600E5427B127E200989A29 /* SceneDelegate.swift */,
 				8A600E5627B127E200989A29 /* ViewController.swift */,
@@ -68,6 +72,34 @@
 				8A600E5B27B127E200989A29 /* Test.xcdatamodeld */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		8A600E8127B31EFD00989A29 /* ServisceLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ServisceLayer;
+			sourceTree = "<group>";
+		};
+		8A600E8227B31F0800989A29 /* MainModule */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MainModule;
+			sourceTree = "<group>";
+		};
+		8A600E8327B31F0B00989A29 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		8A600E8427B31F0D00989A29 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Builder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
