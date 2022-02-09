@@ -14,6 +14,14 @@
 		8A600E5D27B127E200989A29 /* Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E5B27B127E200989A29 /* Test.xcdatamodeld */; };
 		8A600E5F27B127E300989A29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A600E5E27B127E300989A29 /* Assets.xcassets */; };
 		8A600E6227B127E300989A29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A600E6027B127E300989A29 /* LaunchScreen.storyboard */; };
+		8A600E8A27B3209600989A29 /* ImagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E8927B3209600989A29 /* ImagesController.swift */; };
+		8A600E8C27B3213700989A29 /* ImagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E8B27B3213700989A29 /* ImagesPresenter.swift */; };
+		8A600E8E27B321B700989A29 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E8D27B321B700989A29 /* NetworkService.swift */; };
+		8A600E9027B321EF00989A29 /* ImgaePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E8F27B321EF00989A29 /* ImgaePost.swift */; };
+		8A600E9227B3225600989A29 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9127B3225600989A29 /* Builder.swift */; };
+		8A600E9427B322BE00989A29 /* AnchoredConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */; };
+		8A600E9627B322F400989A29 /* LoadImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9527B322F400989A29 /* LoadImageExtension.swift */; };
+		8A600E9827B327B200989A29 /* CellImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9727B327B200989A29 /* CellImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +34,14 @@
 		8A600E5E27B127E300989A29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A600E6127B127E300989A29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A600E6327B127E300989A29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A600E8927B3209600989A29 /* ImagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesController.swift; sourceTree = "<group>"; };
+		8A600E8B27B3213700989A29 /* ImagesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesPresenter.swift; sourceTree = "<group>"; };
+		8A600E8D27B321B700989A29 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		8A600E8F27B321EF00989A29 /* ImgaePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgaePost.swift; sourceTree = "<group>"; };
+		8A600E9127B3225600989A29 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
+		8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredConstraints.swift; sourceTree = "<group>"; };
+		8A600E9527B322F400989A29 /* LoadImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageExtension.swift; sourceTree = "<group>"; };
+		8A600E9727B327B200989A29 /* CellImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +93,7 @@
 		8A600E8127B31EFD00989A29 /* ServisceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				8A600E8D27B321B700989A29 /* NetworkService.swift */,
 			);
 			path = ServisceLayer;
 			sourceTree = "<group>";
@@ -84,6 +101,9 @@
 		8A600E8227B31F0800989A29 /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
+				8A600E8727B3204000989A29 /* Model */,
+				8A600E8627B3203E00989A29 /* Presenter */,
+				8A600E8527B3203A00989A29 /* View */,
 			);
 			path = MainModule;
 			sourceTree = "<group>";
@@ -91,6 +111,8 @@
 		8A600E8327B31F0B00989A29 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */,
+				8A600E9527B322F400989A29 /* LoadImageExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -98,8 +120,42 @@
 		8A600E8427B31F0D00989A29 /* Builder */ = {
 			isa = PBXGroup;
 			children = (
+				8A600E9127B3225600989A29 /* Builder.swift */,
 			);
 			path = Builder;
+			sourceTree = "<group>";
+		};
+		8A600E8527B3203A00989A29 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A600E8827B3207700989A29 /* cell */,
+				8A600E8927B3209600989A29 /* ImagesController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A600E8627B3203E00989A29 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A600E8B27B3213700989A29 /* ImagesPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8A600E8727B3204000989A29 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8A600E8F27B321EF00989A29 /* ImgaePost.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8A600E8827B3207700989A29 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A600E9727B327B200989A29 /* CellImage.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,8 +231,16 @@
 			files = (
 				8A600E5727B127E200989A29 /* ViewController.swift in Sources */,
 				8A600E5D27B127E200989A29 /* Test.xcdatamodeld in Sources */,
+				8A600E9427B322BE00989A29 /* AnchoredConstraints.swift in Sources */,
+				8A600E8C27B3213700989A29 /* ImagesPresenter.swift in Sources */,
+				8A600E9027B321EF00989A29 /* ImgaePost.swift in Sources */,
 				8A600E5327B127E200989A29 /* AppDelegate.swift in Sources */,
+				8A600E9227B3225600989A29 /* Builder.swift in Sources */,
+				8A600E9627B322F400989A29 /* LoadImageExtension.swift in Sources */,
 				8A600E5527B127E200989A29 /* SceneDelegate.swift in Sources */,
+				8A600E9827B327B200989A29 /* CellImage.swift in Sources */,
+				8A600E8A27B3209600989A29 /* ImagesController.swift in Sources */,
+				8A600E8E27B321B700989A29 /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
