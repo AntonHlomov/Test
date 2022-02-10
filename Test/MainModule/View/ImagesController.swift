@@ -12,8 +12,13 @@ let cellId = "apCellId"
 class ImagesController: UIViewController,UINavigationControllerDelegate {
 
     private var cache = NSCache<NSNumber, UIImage>()
+
+   // private var deleteIndexPathItemsСache = NSCache<NSNumber, UIImage>()
+    
+   
     var presenter: ImagesViewPresenterProtocol!
-    var countCell = 6
+    var countCell = 50
+   // var countCache = 0
     
    
     
@@ -43,7 +48,8 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+       // view.backgroundColor = .red
+        cache.countLimit = countCell
         colectionView.delegate = self
         colectionView.dataSource = self
         colectionView.register(CellImage.self, forCellWithReuseIdentifier: cellId)
@@ -70,7 +76,9 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
     
     @objc func updateMyCollectionView() {
         self.cache.removeAllObjects()
+       // self.deleteIndexPathItemsСache.removeAllObjects()
         self.countCell = 6
+     //   self.countCache = 0
         // Завершить обновление
         dataRefresher.endRefreshing()
        // presenter.getImages()
@@ -119,36 +127,108 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
     }
     // MARK: - UICollectionView Delegate
      func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+         
         guard let cell = cell as? CellImage else { return }
-        
         let itemNumber = NSNumber(value: indexPath.item)
-        
+        // guard self.deleteIndexPathItemsСache.object(forKey: itemNumber) == nil else {return}
+         
         if let cachedImage = self.cache.object(forKey: itemNumber) {
             print("Кеш фото: \(itemNumber)")
             cell.postImageView.image = cachedImage
+          
         } else {
             self.loadImage { [weak self] (image) in
                 guard let self = self, let image = image else { return }
+               // self.countCache+=1
                 cell.postImageView.image = image
                 self.cache.setObject(image, forKey: itemNumber)
             }
         }
     }
+  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("нажал\(indexPath)")
+    
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+   //     UIView.animate(withDuration:0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.3, options: .curveEaseOut, animations: {
+   //         cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+   //     }, completion: { finished in
+   //       print("ушла")
+   //         let itemNumber = NSNumber(value: indexPath.item)
+   //         guard let image = self.cache.object(forKey: NSNumber(value: indexPath.item)) else {return}
+   //         self.deleteIndexPathItemsСache.setObject(image, forKey: itemNumber)
+   //         collectionView.deleteItems(at: [indexPath])
+   //     } )
+     
+ 
+        
+       UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.7, options: [],
+                  animations: {
+          // cell!.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+           cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+          
+           print("ушел")
+  
+                  },
+                      completion: { finished in
+           UIView.animate(withDuration: 0, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.3, options: .curveEaseIn,
+                          animations: { [] in
+  
+                cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+               
+               let itemNumber = NSNumber(value: indexPath.item)
+               self.cache.removeObject(forKey: itemNumber)
+               self.countCell = self.countCell - 1
+               if  self.countCell > 1 && indexPath.item != self.countCell  {
+                   for index in indexPath.item...self.countCell-1 {
+                     let itemNumber = NSNumber(value: index)
+                     guard self.cache.object(forKey: NSNumber(value: index + 1)) != nil else{
+                         self.cache.removeObject(forKey:NSNumber(value: index))
+                         collectionView.deleteItems(at: [indexPath])
+                       //  collectionView.reloadItems(at: [[0, index]])
+                         return}
+                     let image = self.cache.object(forKey: NSNumber(value: index + 1))
+                     self.cache.setObject(image!, forKey: itemNumber)
+                 }
+               }
+              
+               collectionView.deleteItems(at: [indexPath])
+              // collectionView.reloadItems(at: [[0, indexPath.item+1]])
+  
+               
+               
+               
+            //   let itemNumber = NSNumber(value: indexPath.item)
+            //   guard let image = self.cache.object(forKey: NSNumber(value: indexPath.item)) else {return}
+            //   self.deleteIndexPathItemsСache.setObject(image, forKey: itemNumber)
+            //   self.cache.removeObject(forKey: itemNumber)
+            //   collectionView.deleteItems(at: [indexPath])
+            //   self.countCell -= 1
+            //   collectionView.reloadData()
+                              },
+                              completion: nil
+                          )
+  
+                      }
+                  )
+  
+      
+        
+        
+        
+        
+        
+        
+     
        
-        let itemNumber = NSNumber(value: indexPath.item)
-        self.cache.removeObject(forKey: itemNumber)
-        self.countCell = countCell - 1
-        if  self.countCell > 1 && indexPath.item != self.countCell  {
-          for index in indexPath.item...countCell-1 {
-              let itemNumber = NSNumber(value: index)
-              let image = self.cache.object(forKey: NSNumber(value: index + 1))
-              self.cache.setObject(image!, forKey: itemNumber)
-          }
-        }
-        collectionView.deleteItems(at: [indexPath])
+           
+       
+
+        
+        
+       
+     
         
         
     }
