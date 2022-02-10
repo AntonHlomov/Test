@@ -14,7 +14,7 @@
 //  6) Добавить к UICollectionView контролл "pull-to-refresh", который при активации должен полностью восстановить исходное состояние UICollectionView и заново загружать все скачанные     ранее картинки (восстанавливать состояние можно без анимации).
 //
 //  Коментарий:
-//  В качестве API используеться сервис "https://picsum.photos/". Который отдает рандомно,в любом качестве,по одной фотографии. Есть возможность изменения качества фотографии на любые значения, для этого нужно заменить значение /800 в func loadImage.
+//  В качестве API используеться сервис "https://picsum.photos/". Который отдает рандомно,в любом размере,по одной фотографии. Для изменения размера фотографии,нужно заменить значение /800 в func loadImage.
 
 import UIKit
 let cellId = "apCellId"
@@ -22,8 +22,8 @@ let cellId = "apCellId"
 class ImagesController: UIViewController,UINavigationControllerDelegate {
     var presenter: ImagesViewPresenterProtocol!
     
-    private var cache = NSCache<NSNumber, UIImage>()
-    var countCell = 6 // Обновление количества ячеек можно задать любое значение
+  //  private var cache = NSCache<NSNumber, UIImage>()
+    var countCell = 60 // Обновление количества ячеек можно задать любое значение
 
     let colectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -45,7 +45,8 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        cache.countLimit = countCell // Лимит кеша связан с количеством ячеек cell
+       // cache.countLimit = countCell // Лимит кеша связан с количеством ячеек cell
+        presenter.cache.countLimit = countCell // Лимит кеша связан с количеством ячеек cell
         colectionView.delegate = self
         colectionView.dataSource = self
         colectionView.register(CellImage.self, forCellWithReuseIdentifier: cellId)
@@ -68,8 +69,9 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
     }()
     
     @objc func updateMyCollectionView() {
-        self.cache.removeAllObjects()
-        self.countCell = 6 // Обновление количества ячеек
+      //  self.cache.removeAllObjects()
+        self.presenter.cache.removeAllObjects()
+        self.countCell = 60 // Обновление количества ячеек
         dataRefresher.endRefreshing() // Завершить обновление
         colectionView.reloadData()
     }
@@ -80,7 +82,7 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
         view.addSubview(colectionView)
         colectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, pading: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: view.frame.width, height: view.frame.height ))
     }
-    // MARK: - Image Loading. Сервер отдает рандомно по одной фотографии. Можно изменить качество фотографии заменив значение /800
+    // MARK: - Image Loading. Сервер отдает рандомно по одной фотографии. Можно изменить размер фотографии заменив значение /800
     
     private func loadImage(completion: @escaping (UIImage?) -> ()) {
         DispatchQueue.global(qos: .utility).async {
@@ -114,19 +116,46 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-       guard let cell = cell as? CellImage else { return }
-       let itemNumber = NSNumber(value: indexPath.item)
-       if let cachedImage = self.cache.object(forKey: itemNumber) {
-           print("Кеш фото: \(itemNumber)")
-           cell.postImageView.image = cachedImage
-       } else {
-           self.loadImage { [weak self] (image) in
-               guard let self = self, let image = image else { return }
-               cell.postImageView.image = image
-               self.cache.setObject(image, forKey: itemNumber)
-           }
-       }
+        
+       
+        
+        guard let cell = cell as? CellImage else { return }
+        let itemNumber = NSNumber(value: indexPath.item)
+        if let cachedImage =  presenter.cache.object(forKey: itemNumber) {
+            print("Кеш фото: \(itemNumber)")
+            cell.postImageView.image = cachedImage
+        } else {
+            self.loadImage { [weak self] (image) in
+                guard let self = self, let image = image else { return }
+                cell.postImageView.image = image
+                self.presenter.cache.setObject(image, forKey: itemNumber)
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    //  guard let cell = cell as? CellImage else { return }
+    //  let itemNumber = NSNumber(value: indexPath.item)
+    //  if let cachedImage = self.cache.object(forKey: itemNumber) {
+    //      print("Кеш фото: \(itemNumber)")
+    //      cell.postImageView.image = cachedImage
+    //  } else {
+    //      self.loadImage { [weak self] (image) in
+    //          guard let self = self, let image = image else { return }
+    //          cell.postImageView.image = image
+    //          self.cache.setObject(image, forKey: itemNumber)
+    //      }
+    //  }
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("нажал\(indexPath)")
         let cell = collectionView.cellForItem(at: indexPath)
@@ -138,20 +167,20 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
             UIView.animate(withDuration: 0, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.3, options: .curveEaseIn,animations: { [] in
                 cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
                 let itemNumber = NSNumber(value: indexPath.item)
-                self.cache.removeObject(forKey: itemNumber)
+                self.presenter.cache.removeObject(forKey: itemNumber)
                 self.countCell = self.countCell - 1
                 if  self.countCell > 1 && indexPath.item != self.countCell {
                     for index in indexPath.item...self.countCell-1 {
                         
                       let itemNumber = NSNumber(value: index)
-                      guard self.cache.object(forKey: NSNumber(value: index + 1)) != nil else {
-                          self.cache.removeObject(forKey:NSNumber(value: index))
+                      guard self.presenter.cache.object(forKey: NSNumber(value: index + 1)) != nil else {
+                          self.presenter.cache.removeObject(forKey:NSNumber(value: index))
                           collectionView.deleteItems(at: [indexPath])
     
                        return
                       }
-                      let image = self.cache.object(forKey: NSNumber(value: index + 1))
-                      self.cache.setObject(image!, forKey: itemNumber)
+                      let image = self.presenter.cache.object(forKey: NSNumber(value: index + 1))
+                      self.presenter.cache.setObject(image!, forKey: itemNumber)
                   }
                 }
                 collectionView.deleteItems(at: [indexPath])
@@ -162,13 +191,53 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
         )
     }
 }
+    
+    
+    
+    
+    
+    
+//     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//         print("нажал\(indexPath)")
+//         let cell = collectionView.cellForItem(at: indexPath)
+//         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.7, options: [],animations: {
+//             cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+//             print("анимация")
+//         },
+//                        completion: { finished in
+//             UIView.animate(withDuration: 0, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.3, options: .curveEaseIn,animations: { [] in
+//                 cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
+//                 let itemNumber = NSNumber(value: indexPath.item)
+//                 self.cache.removeObject(forKey: itemNumber)
+//                 self.countCell = self.countCell - 1
+//                 if  self.countCell > 1 && indexPath.item != self.countCell {
+//                     for index in indexPath.item...self.countCell-1 {
+//
+//                       let itemNumber = NSNumber(value: index)
+//                       guard self.cache.object(forKey: NSNumber(value: index + 1)) != nil else {
+//                           self.cache.removeObject(forKey:NSNumber(value: index))
+//                           collectionView.deleteItems(at: [indexPath])
+//
+//                        return
+//                       }
+//                       let image = self.cache.object(forKey: NSNumber(value: index + 1))
+//                       self.cache.setObject(image!, forKey: itemNumber)
+//                   }
+//                 }
+//                 collectionView.deleteItems(at: [indexPath])
+//
+//                     }, completion: nil
+//                 )
+//             }
+//         )
+//     }
+// }
     // MARK: - ImagesViewProtocol
 
 extension ImagesController: ImagesViewProtocol{
-    func succes() {
-        colectionView.reloadData()
+    func succes(image: UIImage) {
+        var i = image
+        print(" работает succes")
     }
-    func failure(error: Error) {
-        print(error.localizedDescription)
-    }
+    
 }
