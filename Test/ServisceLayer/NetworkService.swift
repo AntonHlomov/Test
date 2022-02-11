@@ -13,15 +13,14 @@ protocol NetworckServiceProtocol {
 }
 
 class NetworkService:NetworckServiceProtocol {
-    
+  
     func loadImage(completion: @escaping (UIImage?) -> Void) {
         DispatchQueue.global(qos: .utility).async {
-            let url = URL(string: "https://picsum.photos/800")!
+            let url = URL(string: "https://picsum.photos/900")!
             guard let data = try? Data(contentsOf: url) else { return }
             let image = UIImage(data: data)
-            DispatchQueue.main.async {
-                completion(image)
-            }
+            completion(image)
+            
         }
     }
 }
