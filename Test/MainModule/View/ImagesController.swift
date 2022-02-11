@@ -111,13 +111,19 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
         
         self.presenter.checkCache(itemNumber: itemNumber)  { []  (image) in
             guard let image = image else { return }
-            cell.postImageView.image = image
+           
+            cell.image = image
+            
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("нажал\(indexPath)")
         let cell = collectionView.cellForItem(at: indexPath)
+      
+      //  let cellImage = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CellImage
+      //  guard self.presenter.cache.object(forKey: NSNumber(value: indexPath.item )) != nil else {return}
+        
+        
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.7, options: [],animations: {
             cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
         },

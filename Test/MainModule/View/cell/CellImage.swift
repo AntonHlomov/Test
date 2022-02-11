@@ -8,6 +8,12 @@
 import UIKit
 
 class CellImage: UICollectionViewCell {
+    
+    var image: ImgaePost? {
+        didSet {
+            postImageView.image = image?.photo
+        }
+    }
 
     override init(frame: CGRect) {
         super .init(frame: frame)
@@ -15,7 +21,6 @@ class CellImage: UICollectionViewCell {
     }
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         self.postImageView.image = nil
     }
                   

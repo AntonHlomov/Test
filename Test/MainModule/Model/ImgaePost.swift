@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
-struct ImgaePost {
-    var photo: UIImage
+class ImgaePost {
+    var photo: UIImage?
+    
+    init(photo: UIImage) {
+           self.photo = photo
+       }
 }

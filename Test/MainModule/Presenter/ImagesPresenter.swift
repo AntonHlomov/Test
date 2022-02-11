@@ -16,11 +16,11 @@ protocol ImagesViewProtocol: AnyObject {
 protocol ImagesViewPresenterProtocol: AnyObject {
     init(view: ImagesViewProtocol, networkService: NetworckServiceProtocol)
     
-    var cache: NSCache<NSNumber, UIImage> { get set } //сохраняем полученное фото в кеш
+    var cache: NSCache<NSNumber, ImgaePost> { get set } //сохраняем полученное фото в кеш
     var countCell: Int{ get set }
     
-    func loadImage(completion: @escaping (UIImage?) -> ()) // api
-    func checkCache(itemNumber: NSNumber,completion: @escaping (UIImage?) -> ()) // запрашиваем фото из сети
+    func loadImage(completion: @escaping (ImgaePost?) -> ()) // api
+    func checkCache(itemNumber: NSNumber,completion: @escaping (ImgaePost?) -> ()) // запрашиваем фото из сети
     func updateCache (indexPath: IndexPath)
  
 }
@@ -29,15 +29,15 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
  
     weak var view: ImagesViewProtocol?
     let networkService: NetworckServiceProtocol!
-    var cache = NSCache<NSNumber, UIImage>()
+    var cache = NSCache<NSNumber, ImgaePost>()
     var countCell = 6
    
     required init (view: ImagesViewProtocol, networkService: NetworckServiceProtocol) {
         self.view = view
         self.networkService = networkService
     }
-    // MARK: - Api
-    func loadImage(completion: @escaping (UIImage?) -> ()) {
+    // MARK: - Запрос к серверу
+    func loadImage(completion: @escaping (ImgaePost?) -> ()) {
         networkService.loadImage{ [] (image) in
             guard  let image = image else { return }
             DispatchQueue.main.async { [] in
@@ -46,7 +46,7 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
         }
     }
     // MARK: - Проверка есть ли фотография в кеше если нет то дабавить
-    func checkCache(itemNumber: NSNumber,completion: @escaping (UIImage?) -> ()) {
+    func checkCache(itemNumber: NSNumber,completion: @escaping (ImgaePost?) -> ()) {
       if let image = self.cache.object(forKey: itemNumber) {
           DispatchQueue.main.async {
           completion(image)
