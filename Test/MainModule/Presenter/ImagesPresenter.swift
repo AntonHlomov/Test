@@ -36,7 +36,7 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
         self.view = view
         self.networkService = networkService
     }
-    // MARK: - Запрос к серверу
+    // MARK: - Запрос к серверу.
     func loadImage(completion: @escaping (ImgaePost?) -> ()) {
         networkService.loadImage{ [] (image) in
             guard  let image = image else { return }
@@ -45,7 +45,7 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
             }
         }
     }
-    // MARK: - Проверка есть ли фотография в кеше если нет то дабавить
+    // MARK: - Проверка есть ли фотография в кеше, если нет то дабавить.
     func checkCache(itemNumber: NSNumber,completion: @escaping (ImgaePost?) -> ()) {
       if let image = self.cache.object(forKey: itemNumber) {
           DispatchQueue.main.async {
@@ -62,7 +62,7 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
             }
         }
     }
-    // MARK: - Удаление ячейки. Обнавление кеша и количества ячеек
+    // MARK: - Удаление ячейки. Обнавление кеша и количества ячеек.
     func updateCache (indexPath: IndexPath){
         let itemNumber = NSNumber(value: indexPath.item)
         self.cache.removeObject(forKey: itemNumber)
@@ -85,8 +85,5 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
         }
         self.view?.deleteCell(indexPath: indexPath)
         }
-    
-    
-    
     
 }

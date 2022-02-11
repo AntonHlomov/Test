@@ -70,6 +70,7 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
     }()
     
     @objc func updateMyCollectionView() {
+        presenter.cache.countLimit = presenter.countCell // Лимит кеша связан с количеством ячеек cell
         self.presenter.cache.removeAllObjects()
         self.presenter.countCell = 6 // Обновление количества ячеек
         dataRefresher.endRefreshing() // Завершить обновление
@@ -118,30 +119,26 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-      //  guard self.presenter.cache.object(forKey: NSNumber(value: indexPath.item )) != nil else {return}
-  
-       UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 11, initialSpringVelocity: 0, options: [],animations: {
+       let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 11, initialSpringVelocity: 0, options: [],animations: {
            cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width*2, y: 0)
+           
           
        },
                       completion: { finished in
-           UIView.animate(withDuration: 0.4, delay: 1, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.4, options: .curveEaseIn,animations: { [self] in
+           UIView.animate(withDuration: 0.3, delay: 1, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.4, options: .curveEaseIn,animations: { [self] in
                cell!.transform = CGAffineTransform(translationX: 0, y: 0)
                self.presenter.updateCache(indexPath: indexPath)
                    }, completion: nil
                )
            }
        )
-       
     }
-    
-    
 }
     // MARK: - ImagesViewProtocol
 
 extension ImagesController: ImagesViewProtocol{
     func deleteCell(indexPath: IndexPath) {
-        colectionView.deleteItems(at: [indexPath])
+    colectionView.deleteItems(at: [indexPath])
     }
 }

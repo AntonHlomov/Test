@@ -14,7 +14,9 @@ class CellImage: UICollectionViewCell {
             postImageView.image = image?.photo
         }
     }
-
+    
+    let postImageView = CustomUIimageView(frame: .zero )
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
         setupViews()
@@ -27,7 +29,7 @@ class CellImage: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    let postImageView = CustomUIimageView(frame: .zero )
+    
   
     func setupViews(){
         
