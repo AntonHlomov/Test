@@ -20,8 +20,8 @@
 		8A600E9027B321EF00989A29 /* ImgaePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E8F27B321EF00989A29 /* ImgaePost.swift */; };
 		8A600E9227B3225600989A29 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9127B3225600989A29 /* Builder.swift */; };
 		8A600E9427B322BE00989A29 /* AnchoredConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */; };
-		8A600E9627B322F400989A29 /* LoadImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9527B322F400989A29 /* LoadImageExtension.swift */; };
 		8A600E9827B327B200989A29 /* CellImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9727B327B200989A29 /* CellImage.swift */; };
+		8AD2AB0C27B71C3B00723DE9 /* Customimage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD2AB0B27B71C3B00723DE9 /* Customimage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +40,8 @@
 		8A600E8F27B321EF00989A29 /* ImgaePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgaePost.swift; sourceTree = "<group>"; };
 		8A600E9127B3225600989A29 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredConstraints.swift; sourceTree = "<group>"; };
-		8A600E9527B322F400989A29 /* LoadImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageExtension.swift; sourceTree = "<group>"; };
 		8A600E9727B327B200989A29 /* CellImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImage.swift; sourceTree = "<group>"; };
+		8AD2AB0B27B71C3B00723DE9 /* Customimage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customimage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */,
-				8A600E9527B322F400989A29 /* LoadImageExtension.swift */,
+				8AD2AB0B27B71C3B00723DE9 /* Customimage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -236,9 +236,9 @@
 				8A600E9027B321EF00989A29 /* ImgaePost.swift in Sources */,
 				8A600E5327B127E200989A29 /* AppDelegate.swift in Sources */,
 				8A600E9227B3225600989A29 /* Builder.swift in Sources */,
-				8A600E9627B322F400989A29 /* LoadImageExtension.swift in Sources */,
 				8A600E5527B127E200989A29 /* SceneDelegate.swift in Sources */,
 				8A600E9827B327B200989A29 /* CellImage.swift in Sources */,
+				8AD2AB0C27B71C3B00723DE9 /* Customimage.swift in Sources */,
 				8A600E8A27B3209600989A29 /* ImagesController.swift in Sources */,
 				8A600E8E27B321B700989A29 /* NetworkService.swift in Sources */,
 			);

@@ -1,8 +1,8 @@
 //
-//  LoadImageExtension.swift
+//  Customimage.swift
 //  Test
 //
-//  Created by Anton Khlomov on 08/02/2022.
+//  Created by Anton Khlomov on 11/02/2022.
 //
 
 import Foundation
@@ -25,4 +25,3 @@ class CustomUIimageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

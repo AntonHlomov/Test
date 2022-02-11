@@ -119,23 +119,24 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-      
-      //  let cellImage = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CellImage
       //  guard self.presenter.cache.object(forKey: NSNumber(value: indexPath.item )) != nil else {return}
-        
-        
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.7, options: [],animations: {
-            cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-        },
-                       completion: { finished in
-            UIView.animate(withDuration: 0, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.3, options: .curveEaseIn,animations: { [self] in
-                cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width, y: 0)
-                self.presenter.updateCache(indexPath: indexPath)
-                    }, completion: nil
-                )
-            }
-        )
+  
+       UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 11, initialSpringVelocity: 0, options: [],animations: {
+           cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width*2, y: 0)
+          
+       },
+                      completion: { finished in
+           UIView.animate(withDuration: 0.4, delay: 1, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.4, options: .curveEaseIn,animations: { [self] in
+               cell!.transform = CGAffineTransform(translationX: 0, y: 0)
+               self.presenter.updateCache(indexPath: indexPath)
+                   }, completion: nil
+               )
+           }
+       )
+       
     }
+    
+    
 }
     // MARK: - ImagesViewProtocol
 
