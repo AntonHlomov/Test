@@ -15,7 +15,7 @@ protocol ImagesViewProtocol: AnyObject {
 }
 
 protocol ImagesViewPresenterProtocol: AnyObject {
-    init(view: ImagesViewProtocol, networkService: NetworckServiceProtocol)
+    init(view: ImagesViewProtocol, networkService: NetworckServiceProtocol,dataLinks:[String])
     
     var cache: NSCache<NSNumber, ImgaePost> { get set } //сохраняем полученное фото в кеш
     var links:[String] { get set }
@@ -30,14 +30,14 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
     weak var view: ImagesViewProtocol?
     let networkService: NetworckServiceProtocol!
     var cache = NSCache<NSNumber, ImgaePost>()
-    var dataLinks =  ["https://picsum.photos/id/1070/800","https://picsum.photos/id/228/800","https://picsum.photos/id/281/800","https://picsum.photos/id/314/800","https://picsum.photos/id/258/800","https://picsum.photos/id/238/800"]
+    var dataLinks:[String]
     var links = [String]()
 
-    required init (view: ImagesViewProtocol, networkService: NetworckServiceProtocol) {
+    required init (view: ImagesViewProtocol, networkService: NetworckServiceProtocol,dataLinks: [String]) {
         self.view = view
         self.networkService = networkService
+        self.dataLinks = dataLinks
         self.links = dataLinks
-        
         
     }
     // MARK: - Запрос к серверу.
