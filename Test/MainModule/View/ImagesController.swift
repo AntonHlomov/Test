@@ -108,9 +108,7 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
         guard let cell = cell as? CellImage else { return }
         self.presenter.checkCache(indexPath: indexPath)  { []  (image) in
             guard let image = image else { return }
-           
             cell.postImageView.image = image.photo
-            
         }
     }
     
@@ -118,14 +116,11 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
         let cell = collectionView.cellForItem(at: indexPath)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 3, initialSpringVelocity: 4, options: .curveEaseInOut,animations: {
             cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width+10, y: 0)
-      
        },
-                      completion: { finished in
+        completion: { finished in
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 1, options: .curveEaseIn,animations: { [] in
                cell!.transform = CGAffineTransform(translationX:  UIScreen.main.bounds.width+10, y: 0)
-                
                self.presenter.updateCache(indexPath: indexPath)
-                
                 }, completion: nil
                )
            }
