@@ -11,7 +11,7 @@ class CellImage: UICollectionViewCell {
     
     var image: ImgaePost? {
         didSet {
-            postImageView.image = image?.photo
+            postImageView.image = image?.photo 
         }
     }
     
@@ -24,6 +24,7 @@ class CellImage: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.postImageView.image = nil
+       
     }
                   
     required init?(coder: NSCoder) {

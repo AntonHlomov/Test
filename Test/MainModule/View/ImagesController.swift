@@ -89,7 +89,7 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
 extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.countCell
+        return presenter.countCell 
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize (width: view.frame.width - 20, height: view.frame.width - 20)
@@ -106,29 +106,34 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
         
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+        print("обновим", indexPath.item)
         guard let cell = cell as? CellImage else { return }
         let itemNumber = NSNumber(value: indexPath.item)
-        
+       
         self.presenter.checkCache(itemNumber: itemNumber)  { []  (image) in
             guard let image = image else { return }
            
-            cell.image = image
+            cell.postImageView.image = image.photo
             
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        let cell = collectionView.cellForItem(at: indexPath)
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 11, initialSpringVelocity: 0, options: [],animations: {
-           cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width*2, y: 0)
-           
-          
+       
+        
+       // colectionView.deleteItems(at: [indexPath])
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 3, initialSpringVelocity: 4, options: .curveEaseInOut,animations: {
+            cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width+10, y: 0)
+      
        },
                       completion: { finished in
-           UIView.animate(withDuration: 0.3, delay: 1, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.4, options: .curveEaseIn,animations: { [self] in
-               cell!.transform = CGAffineTransform(translationX: 0, y: 0)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 1, options: .curveEaseIn,animations: { [] in
+               cell!.transform = CGAffineTransform(translationX:  UIScreen.main.bounds.width+10, y: 0)
+              
                self.presenter.updateCache(indexPath: indexPath)
+
+              // self.presenter.updateCache(indexPath: indexPath)
                    }, completion: nil
                )
            }
@@ -140,5 +145,6 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
 extension ImagesController: ImagesViewProtocol{
     func deleteCell(indexPath: IndexPath) {
     colectionView.deleteItems(at: [indexPath])
+        print("после количество ячеек", self.presenter.countCell)
     }
 }

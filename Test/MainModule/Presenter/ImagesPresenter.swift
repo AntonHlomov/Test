@@ -30,7 +30,7 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
     weak var view: ImagesViewProtocol?
     let networkService: NetworckServiceProtocol!
     var cache = NSCache<NSNumber, ImgaePost>()
-    var countCell = 6
+    var countCell = 30
    
     required init (view: ImagesViewProtocol, networkService: NetworckServiceProtocol) {
         self.view = view
@@ -64,10 +64,11 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
     }
     // MARK: - Удаление ячейки. Обнавление кеша и количества ячеек.
     func updateCache (indexPath: IndexPath){
+        print("до количество ячеек", self.countCell)
         let itemNumber = NSNumber(value: indexPath.item)
         self.cache.removeObject(forKey: itemNumber)
-        self.countCell -= 1
-        
+      //  if self.countCell != 1 { self.countCell -= 1}
+      
         if self.countCell > 1 && indexPath.item != self.countCell {
             
             for index in indexPath.item...self.countCell-1 {
@@ -76,6 +77,7 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
               guard self.cache.object(forKey: NSNumber(value: index + 1)) != nil else {
                   self.cache.removeObject(forKey:NSNumber(value: index))
                   self.view?.deleteCell(indexPath: indexPath)
+                  self.countCell -= 1
                   return
               }
                 
@@ -84,6 +86,6 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
           }
         }
         self.view?.deleteCell(indexPath: indexPath)
+        self.countCell -= 1
         }
-    
 }
