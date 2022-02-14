@@ -22,7 +22,6 @@ class NetworkService:NetworckServiceProtocol {
             guard let imageData = UIImage(data: data) else { return }
             let image = ImgaePost.init(photo: imageData, link: link)
             completion(image)
-            
         }
     }
 }
