@@ -89,7 +89,7 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
 extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.countCell 
+        return   presenter.countCell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize (width: view.frame.width - 20, height: view.frame.width - 20)
@@ -108,9 +108,9 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         print("обновим", indexPath.item)
         guard let cell = cell as? CellImage else { return }
-        let itemNumber = NSNumber(value: indexPath.item)
+      //  let itemNumber = NSNumber(value: indexPath.item)
        
-        self.presenter.checkCache(itemNumber: itemNumber)  { []  (image) in
+        self.presenter.checkCache(indexPath: indexPath)  { []  (image) in
             guard let image = image else { return }
            
             cell.postImageView.image = image.photo
@@ -120,7 +120,7 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        let cell = collectionView.cellForItem(at: indexPath)
-       
+        
         
        // colectionView.deleteItems(at: [indexPath])
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 3, initialSpringVelocity: 4, options: .curveEaseInOut,animations: {

@@ -9,17 +9,18 @@ import Foundation
 import UIKit
 
 protocol NetworckServiceProtocol {
-    func loadImage(completion: @escaping (ImgaePost?) -> Void)
+    func loadImage(link: String,completion: @escaping (ImgaePost?) -> Void)
+   
 }
 
 class NetworkService:NetworckServiceProtocol {
   
-    func loadImage(completion: @escaping (ImgaePost?) -> Void) {
+    func loadImage(link: String,completion: @escaping (ImgaePost?) -> Void) {
         DispatchQueue.global(qos: .utility).async {
-            let url = URL(string: "https://picsum.photos/900")!
+            let url = URL(string: link)!
             guard let data = try? Data(contentsOf: url) else { return }
             guard let imageData = UIImage(data: data) else { return }
-            let image = ImgaePost.init(photo: imageData)
+            let image = ImgaePost.init(photo: imageData, link: link)
             completion(image)
             
         }

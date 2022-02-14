@@ -10,8 +10,10 @@ import UIKit
 
 class ImgaePost {
     var photo: UIImage?
+    var link: String
     
-    init(photo: UIImage) {
+    init(photo: UIImage,link: String) {
            self.photo = photo
+           self.link = link
        }
 }
