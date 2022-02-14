@@ -40,25 +40,37 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
     
     return collectionView
 }()
+    lazy var chekInternet = Reachability.isConnectedToNetwork(){
+            didSet {
+                if chekInternet == true {
+                    print("!!!!Connected to the internet")
+                    colectionView.reloadData()
+                    
+                } else {
+                    print("!!!No internet connection")
+                }
+            }
+        }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.title  = "Picsum"
-       
+        
         presenter.cache.countLimit = presenter.links.count // Лимит кеша связан с количеством ячеек cell
         colectionView.delegate = self
         colectionView.dataSource = self
         colectionView.register(CellImage.self, forCellWithReuseIdentifier: cellId)
         colectionView.refreshControl = dataRefresher
         configureViewComponents()
-        
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         colectionView.collectionViewLayout.invalidateLayout()
     }
+
+   
     // MARK: - RefreshControl
     
     lazy var dataRefresher : UIRefreshControl = {

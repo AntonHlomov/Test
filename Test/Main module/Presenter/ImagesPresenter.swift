@@ -23,6 +23,7 @@ protocol ImagesViewPresenterProtocol: AnyObject {
     func checkCache(indexPath: IndexPath,completion: @escaping (ImgaePost?) -> ()) // запрашиваем фото из сети
     func updateCache (indexPath: IndexPath)
     func reloadDataLinks()
+  
 }
 
 class ImagesPresenter: ImagesViewPresenterProtocol {
@@ -38,7 +39,7 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
         self.networkService = networkService
         self.dataLinks = dataLinks
         self.links = dataLinks
-        
+
     }
     // MARK: - Запрос к серверу.
     func loadImage(link: String,completion: @escaping (ImgaePost?) -> ()) {
@@ -89,4 +90,5 @@ class ImagesPresenter: ImagesViewPresenterProtocol {
         self.links = self.dataLinks
         self.view?.reloadCollectionView()
     }
+    
 }

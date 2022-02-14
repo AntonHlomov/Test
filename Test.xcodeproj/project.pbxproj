@@ -21,6 +21,7 @@
 		8A600E9227B3225600989A29 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9127B3225600989A29 /* Builder.swift */; };
 		8A600E9427B322BE00989A29 /* AnchoredConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */; };
 		8A600E9827B327B200989A29 /* CellImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A600E9727B327B200989A29 /* CellImage.swift */; };
+		8A71595B27BA5E7F00D190EF /* ReachabilityInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A71595A27BA5E7F00D190EF /* ReachabilityInternet.swift */; };
 		8AD2AB0C27B71C3B00723DE9 /* Customimage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD2AB0B27B71C3B00723DE9 /* Customimage.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		8A600E9127B3225600989A29 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoredConstraints.swift; sourceTree = "<group>"; };
 		8A600E9727B327B200989A29 /* CellImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImage.swift; sourceTree = "<group>"; };
+		8A71595A27BA5E7F00D190EF /* ReachabilityInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityInternet.swift; sourceTree = "<group>"; };
 		8AD2AB0B27B71C3B00723DE9 /* Customimage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customimage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 			children = (
 				8A600E9327B322BE00989A29 /* AnchoredConstraints.swift */,
 				8AD2AB0B27B71C3B00723DE9 /* Customimage.swift */,
+				8A71595A27BA5E7F00D190EF /* ReachabilityInternet.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				8A600E9827B327B200989A29 /* CellImage.swift in Sources */,
 				8AD2AB0C27B71C3B00723DE9 /* Customimage.swift in Sources */,
 				8A600E8A27B3209600989A29 /* ImagesController.swift in Sources */,
+				8A71595B27BA5E7F00D190EF /* ReachabilityInternet.swift in Sources */,
 				8A600E8E27B321B700989A29 /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
