@@ -40,14 +40,17 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
     
     return collectionView
 }()
+    var indicator = 1
     lazy var chekInternet = Reachability.isConnectedToNetwork(){
             didSet {
-                if chekInternet == true {
+                if chekInternet == true && self.indicator == 0 {
                     print("!!!!Connected to the internet")
+                    indicator = 1
                     colectionView.reloadData()
                     
                 } else {
                     print("!!!No internet connection")
+                    indicator = 0
                 }
             }
         }
