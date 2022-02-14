@@ -14,8 +14,8 @@
 //  6) Добавить к UICollectionView контролл "pull-to-refresh", который при активации должен полностью восстановить исходное состояние UICollectionView и заново загружать все скачанные     ранее картинки (восстанавливать состояние можно без анимации).
 //
 //  Коментарий:
-//  В качестве API используеться сервис "https://picsum.photos/". Который отдает рандомно,в любом размере,по одной фотографии. Для изменения размера фотографии,нужно заменить значение /800 в  NetworkService -> func loadImage.
-//  Количество фотографий изменяеться в ImagesPresenter -> countCell
+//  В качестве API используеться сервис "https://picsum.photos/". Для изменения размера фотографии,можно заменить значение /800 в  NetworkService -> func loadImage.
+
 
 import UIKit
 let cellId = "apCellId"
@@ -47,7 +47,7 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.title  = "Picsum"
        
-        presenter.cache.countLimit = presenter.countCell // Лимит кеша связан с количеством ячеек cell
+        presenter.cache.countLimit = presenter.links.count // Лимит кеша связан с количеством ячеек cell
         colectionView.delegate = self
         colectionView.dataSource = self
         colectionView.register(CellImage.self, forCellWithReuseIdentifier: cellId)
@@ -70,11 +70,9 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
     }()
     
     @objc func updateMyCollectionView() {
-        presenter.cache.countLimit = presenter.countCell // Лимит кеша связан с количеством ячеек cell
-        self.presenter.cache.removeAllObjects()
-        self.presenter.countCell = 6 // Обновление количества ячеек
+        self.presenter.reloadDataLinks()  
         dataRefresher.endRefreshing() // Завершить обновление
-        colectionView.reloadData()
+       
     }
     
     // MARK: - Configure components
@@ -89,7 +87,7 @@ class ImagesController: UIViewController,UINavigationControllerDelegate {
 extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return   presenter.countCell
+        return   presenter.links.count
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize (width: view.frame.width - 20, height: view.frame.width - 20)
@@ -108,8 +106,6 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         print("обновим", indexPath.item)
         guard let cell = cell as? CellImage else { return }
-      //  let itemNumber = NSNumber(value: indexPath.item)
-       
         self.presenter.checkCache(indexPath: indexPath)  { []  (image) in
             guard let image = image else { return }
            
@@ -119,10 +115,7 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       let cell = collectionView.cellForItem(at: indexPath)
-        
-        
-       // colectionView.deleteItems(at: [indexPath])
+        let cell = collectionView.cellForItem(at: indexPath)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 3, initialSpringVelocity: 4, options: .curveEaseInOut,animations: {
             cell!.transform = CGAffineTransform(translationX: UIScreen.main.bounds.width+10, y: 0)
       
@@ -130,11 +123,10 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
                       completion: { finished in
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 1, options: .curveEaseIn,animations: { [] in
                cell!.transform = CGAffineTransform(translationX:  UIScreen.main.bounds.width+10, y: 0)
-              
+                
                self.presenter.updateCache(indexPath: indexPath)
-
-              // self.presenter.updateCache(indexPath: indexPath)
-                   }, completion: nil
+                
+                }, completion: nil
                )
            }
        )
@@ -143,8 +135,15 @@ extension ImagesController: UICollectionViewDelegate, UICollectionViewDataSource
     // MARK: - ImagesViewProtocol
 
 extension ImagesController: ImagesViewProtocol{
+    
+    func reloadCollectionView() {
+        self.colectionView.reloadData()
+        let indexPath = IndexPath(item: 1,section: 0)
+        self.colectionView.reloadItems(at: [indexPath])
+    }
+    
     func deleteCell(indexPath: IndexPath) {
     colectionView.deleteItems(at: [indexPath])
-        print("после количество ячеек", self.presenter.countCell)
     }
 }
+
