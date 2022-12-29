@@ -1,1 +1,1 @@
-# Colection photo (MVP)
+# Colection photo(MVP)
