@@ -3,18 +3,17 @@
 //  Test
 //
 //  Created by Anton Khlomov on 08/02/2022.
-//
+//  Cтруктура констрейнов отступов и зависимостей(верх, лево, низ, право, ширина, высота)
 
 import Foundation
 import UIKit
 
-
-//  структура констрейнов отступов и зависимостей(верх, лево, низ, право, ширина, высота)
 struct AnchoredConstraints {
     var top, leading, bottom, trailing, width, height: NSLayoutConstraint?
 }
 extension UIView{
     @discardableResult
+    
     func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?,pading: UIEdgeInsets = .zero, size: CGSize = .zero) -> AnchoredConstraints {
         translatesAutoresizingMaskIntoConstraints = false
         var anchoredConstraints = AnchoredConstraints()
@@ -57,6 +56,7 @@ extension UIView{
             trailingAnchor.constraint(equalTo: superviewTrailingAnchor, constant: pading.right).isActive = true
         }
     }
+    
     func centerInSuperview(size: CGSize = .zero)  {
     translatesAutoresizingMaskIntoConstraints = false
         if let superviwCenterXAnchor = superview? .centerXAnchor{
@@ -73,4 +73,3 @@ extension UIView{
         }
     }
 }
-

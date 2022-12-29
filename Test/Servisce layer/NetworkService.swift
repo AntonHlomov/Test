@@ -8,23 +8,29 @@
 import Foundation
 import UIKit
 
-protocol NetworckServiceProtocol {
-    func loadImage(link: String,completion: @escaping (ImgaePost?) -> Void)
-   
-}
+var imagePostCache = [String: ImgaePost]()//Cache
 
+protocol NetworckServiceProtocol {
+    func getImage(link: String,completion: @escaping (Result<ImgaePost?,Error>) -> Void)
+}
 class NetworkService:NetworckServiceProtocol {
-  
-    func loadImage(link: String,completion: @escaping (ImgaePost?) -> Void) {
-        DispatchQueue.global(qos: .utility).async {
-            let url = URL(string: link)!
-            guard let data = try? Data(contentsOf: url) else { return }
-            guard let imageData = UIImage(data: data) else { return }
-            let image = ImgaePost.init(photo: imageData, link: link)
-            completion(image)
+    func getImage(link: String,completion: @escaping (Result<ImgaePost?, Error>) -> Void) {
+        // check if there is a photo in the cache
+        if let cachedImage = imagePostCache[link] {
+            completion(.success(cachedImage))
+            return }
+        let url = URL(string: link)!
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else { return }
+            guard let imageData = UIImage(data: data) else {return }
+            let imagePost = ImgaePost.init(photo: imageData, link: link)
+            imagePostCache[url.absoluteString] = imagePost
+            completion(.success(imagePost))
         }
+        task.resume()
     }
 }
-
-
-
